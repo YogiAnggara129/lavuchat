@@ -20,5 +20,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/fetch', [App\Http\Controllers\HomeController::class, 'fetchMessage']);
 Route::post('/send', [App\Http\Controllers\HomeController::class, 'sendMessage']);
