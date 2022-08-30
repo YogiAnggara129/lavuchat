@@ -43,12 +43,12 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get all of the chats for the User
+     * User has many chat
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return void
      */
-    public function chats(): HasMany
+    public function chats()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Chat::class);
     }
 }

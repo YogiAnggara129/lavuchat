@@ -5286,6 +5286,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      'message': '',
+      'messages': []
+    };
+  },
+  props: {
+    'user': Object
+  },
+  methods: {
+    sendMessage: function sendMessage() {
+      this.messages.push({
+        user: this.user,
+        message: this.message
+      });
+      axios.post('/send', {
+        message: this.message
+      }).then(function (result) {
+        console.log(result);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+      this.message = '';
+    }
+  },
   mounted: function mounted() {
     Echo.join('chat').listen('ChatSent', function (e) {
       console.log(e);
@@ -5353,13 +5378,6 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
   return _c("div", {
     staticClass: "container"
   }, [_c("div", {
@@ -5370,7 +5388,46 @@ var staticRenderFns = [function () {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v("Chat Room")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Chat Room")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "card-footer"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.message,
+      expression: "message"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      name: "",
+      id: ""
+    },
+    domProps: {
+      value: _vm.message
+    },
+    on: {
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.sendMessage();
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.message = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("p", {
+    staticClass: "text-muted"
+  }, [_vm._v("Username typing...")])])])]), _vm._v(" "), _vm._m(1)])]);
+};
+
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
     staticClass: "card-body bg-secondary",
     attrs: {
       id: "chat-box"
@@ -5381,20 +5438,12 @@ var staticRenderFns = [function () {
     staticClass: "media-body m-2"
   }, [_c("h5", {
     staticClass: "mt-0"
-  }, [_vm._v("Username")]), _vm._v("\n                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ipsum consequuntur tempore explicabo molestiae? Quo tempore minima recusandae nulla obcaecati velit non placeat, delectus consequuntur eaque ex provident quasi tempora.\n                        ")])])]), _vm._v(" "), _c("div", {
-    staticClass: "card-footer"
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      name: "",
-      id: ""
-    }
-  })]), _vm._v(" "), _c("p", {
-    staticClass: "text-muted"
-  }, [_vm._v("Username typing...")])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Username")]), _vm._v("\n                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ipsum consequuntur tempore explicabo molestiae? Quo tempore minima recusandae nulla obcaecati velit non placeat, delectus consequuntur eaque ex provident quasi tempora.\n                        ")])])]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
     staticClass: "col-md-4"
   }, [_c("div", {
     staticClass: "card"
@@ -5409,7 +5458,7 @@ var staticRenderFns = [function () {
     staticClass: "list-group"
   }, [_c("li", {
     staticClass: "list-group-item"
-  }, [_vm._v("Username")])])])])])])]);
+  }, [_vm._v("Username")])])])])]);
 }];
 render._withStripped = true;
 
